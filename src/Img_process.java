@@ -59,13 +59,13 @@ public class Img_process extends Frame {
 		obj.get(cnt).puzzle(obj.get(2), 300, 0);
 		obj.get(cnt).output("Lenna512_b.raw");
 
-		obj.get(cnt).show_img("Lenna512_b.raw");
+		obj.get(cnt).show_img();
 
 	}
 
 	public void readimg(String input_image) throws IOException {
-		InputStream fis = new FileInputStream(input_image); // 來源檔案
-		for (int i = 0; i < size; i++) // Read the input image file
+		InputStream fis = new FileInputStream(input_image); 
+		for (int i = 0; i < size; i++) 
 			for (int j = 0; j < size; j++)
 				if ((ch = fis.read()) != -1) {
 					image[i][j] = ch;
@@ -78,10 +78,10 @@ public class Img_process extends Frame {
 
 	public void cw() throws IOException {
 		int ch;
-		int a[][] = new int[size][size]; // 鏡射後的圖
-		for (int i = 0; i < size; i++) {// Write the output image file
-			for (int j = 0; j < size; j++) { // 將左右兩邊的像素進行交換
-				a[i][j] = image[size - j - 1][i]; // 進行影像鏡射動作
+		int a[][] = new int[size][size]; 
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) { 
+				a[i][j] = image[size - j - 1][i]; 
 			}
 		}
 		image = a;
@@ -89,10 +89,10 @@ public class Img_process extends Frame {
 
 	public void mirror_h() throws IOException {
 		int ch;
-		int a[][] = new int[size][size]; // 鏡射後的圖
-		for (int i = 0; i < size; i++) {// Write the output image file
-			for (int j = 0; j < size; j++) { // 將左右兩邊的像素進行交換
-				a[i][j] = image[i][size - j - 1]; // 進行影像鏡射動作
+		int a[][] = new int[size][size]; 
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) { 
+				a[i][j] = image[i][size - j - 1];
 			}
 		}
 		image = a;
@@ -100,10 +100,10 @@ public class Img_process extends Frame {
 
 	public void mirror_v() throws IOException {
 		int ch;
-		int a[][] = new int[size][size]; // 鏡射後的圖
-		for (int i = 0; i < size; i++) {// Write the output image file
-			for (int j = 0; j < size; j++) { // 將左右兩邊的像素進行交換
-				a[i][j] = image[size - i - 1][j]; // 進行影像鏡射動作
+		int a[][] = new int[size][size]; 
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) { 
+				a[i][j] = image[size - i - 1][j]; 
 			}
 		}
 		image = a;
@@ -112,10 +112,9 @@ public class Img_process extends Frame {
 	public void output(String output_image) throws IOException {
 		System.out.println("輸出圖檔：  " + output_image + ".");
 
-		OutputStream fout = new FileOutputStream(output_image); // 來源檔案
-		for (int i = 0; i < size; i++) {// Write the output image file
-			for (int j = 0; j < size; j++) { // 將左右兩邊的像素進行交換
-
+		OutputStream fout = new FileOutputStream(output_image); 
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) { 
 				fout.write(image[i][j]);
 			}
 		}
@@ -197,7 +196,7 @@ public class Img_process extends Frame {
 		int x, y;
 		int[][] Z = new int[output_size][output_size];
 
-		for (i = 0; i < output_size; i++) // scan origin write to smaller img
+		for (i = 0; i < output_size; i++) 
 			for (j = 0; j < output_size; j++) {
 				x = (size * i) / output_size;
 				y = (size * j) / output_size;
@@ -216,18 +215,15 @@ public class Img_process extends Frame {
 		}
 	}
 
-	public void show_img(String input_image) throws IOException {
-
-		InputStream is0 = new FileInputStream(input_image);
+	public void show_img() throws IOException {
 
 		// MemoryImageSource只收一維陣列
 		int p41[] = new int[size * size];
-		for (i = 0; i < size * size; i++) {
-
-			if ((ch = is0.read()) != -1) {
-				p41[i] = ch | ch << 8 | ch << 16 | 0XFF000000; // LRGB
+		int k=0;
+		for (i = 0; i < size ; i++) {
+			for (j=0; j<size; j++, k++){
+				p41[k] = image[i][j] | image[i][j] << 8 | image[i][j] << 16 | 0XFF000000; // LRGB
 			}
-
 		}
 		ImageObj = createImage(new MemoryImageSource(size, size, p41, 0, size));
 		setVisible(true);
