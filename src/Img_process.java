@@ -35,7 +35,7 @@ public class Img_process extends Frame {
 
 		obj.add(new Img_process(300));
 		obj.get(cnt).readimg(obj.get(0).image);
-		obj.get(cnt).mirror_h();
+		obj.get(cnt).mirror_v();
 		obj.get(cnt).cw();
 		obj.get(cnt).blur();
 		obj.get(cnt).output("Lenna512_s_mh.raw");
@@ -43,7 +43,9 @@ public class Img_process extends Frame {
 
 		obj.add(new Img_process(300));
 		obj.get(cnt).readimg(obj.get(0).image);
-		obj.get(cnt).mirror_v();
+		obj.get(cnt).mirror_h();
+		obj.get(cnt).cw();
+		obj.get(cnt).cw();
 		obj.get(cnt).sharp();
 		obj.get(cnt).sharp();
 		obj.get(cnt).output("Lenna512_s_mv.raw");
@@ -54,14 +56,14 @@ public class Img_process extends Frame {
 		obj.get(cnt).bigduction(600);
 		obj.get(cnt).output("Lenna512_b.raw");
 
-		obj.get(cnt).puzzle(obj.get(0), 0, 0);
-		obj.get(cnt).puzzle(obj.get(1), 0, 300);
-		obj.get(cnt).puzzle(obj.get(2), 300, 0);
+		obj.get(cnt).cover_img(obj.get(0), 0, 0);
+		obj.get(cnt).cover_img(obj.get(1), 0, 300);
+		obj.get(cnt).cover_img(obj.get(2), 300, 0);
 		obj.get(cnt).output("Lenna512_b.raw");
 
 		obj.get(cnt).show_img();
 
-	}
+	} //main
 
 	public void readimg(String input_image) throws IOException {
 		InputStream fis = new FileInputStream(input_image); 
@@ -207,7 +209,7 @@ public class Img_process extends Frame {
 		size = output_size;
 	}
 
-	public void puzzle(Img_process a, int istart, int jstart) {
+	public void cover_img(Img_process a, int istart, int jstart) {
 		for (i = 0; i < a.size; i++) {
 			for (j = 0; j < a.size; j++) {
 				image[i + istart][j + jstart] = a.image[i][j];
@@ -236,10 +238,10 @@ public class Img_process extends Frame {
 				System.exit(0);
 			}
 		});
-	} // end of constructor
+	} // public void show_img() throws IOException
 
 	public void paint(Graphics g) {
 		if (ImageObj != null)
 			g.drawImage(ImageObj, inLeft, inTop, this);
-	}
-}
+	}//public void paint(Graphics g)
+}//public class Img_process extends Frame
