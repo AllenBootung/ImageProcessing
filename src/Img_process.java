@@ -59,7 +59,7 @@ public class Img_process extends Frame {
 		obj.get(cnt).puzzle(obj.get(2), 300, 0);
 		obj.get(cnt).output("Lenna512_b.raw");
 
-		obj.get(cnt).show4();
+		obj.get(cnt).show_img("Lenna512_b.raw");
 
 	}
 
@@ -216,9 +216,9 @@ public class Img_process extends Frame {
 		}
 	}
 
-	public void show4() throws IOException {
+	public void show_img(String input_image) throws IOException {
 
-		InputStream is0 = new FileInputStream("Lenna512_b.RAW");
+		InputStream is0 = new FileInputStream(input_image);
 
 		// MemoryImageSource¥u¦¬¤@ºû°}¦C
 		int p41[] = new int[size * size];
